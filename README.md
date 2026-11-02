@@ -1,6 +1,6 @@
 # Explorer App con React — Yonatan Chicas
 
-Proyecto de S24–S27 desarrollado con **React 18, TypeScript, Vite, Tailwind CSS v4 y pnpm**. La interfaz sigue Atomic Design y utiliza los tres registros de demostración del material de clase: **El Salvador, Japan y Canada**.
+Proyecto desarrollado con **React 18, TypeScript, Vite, Tailwind CSS v4 y pnpm**. La interfaz sigue Atomic Design y utiliza los tres registros de demostración del material de clase: **El Salvador, Japan y Canada**.
 
 Incluye búsqueda inmediata por nombre, filtro por región combinado, mensaje sin coincidencias, limpieza de controles y navegación adaptable. El estado compartido permanece en `App.tsx`. No utiliza una API ni React Router en este parcial.
 
