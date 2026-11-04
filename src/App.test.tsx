@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { CountryCard } from './components/molecules/CountryCard';
 import { CountryGrid } from './components/organisms/CountryGrid';
+import { CountryDetails } from './components/organisms/CountryDetails';
 import { Header } from './components/organisms/Header';
 import { canada, countriesDemo, elSalvador, japon } from './data/countries-demo';
 import type { Country } from './types/country';
@@ -97,14 +98,20 @@ describe('composición y callbacks de S25', () => {
     expect(onSelect).toHaveBeenCalledWith('XX');
   });
 
-  it('App recibe la selección y muestra el código correcto en la consola', async () => {
+  it('App abre la ficha seleccionada y conserva el código correcto en la consola', async () => {
     const user = userEvent.setup();
     const log = vi.spyOn(console, 'log').mockImplementation(() => {});
     try {
       render(<App />);
-      for (const [name, code] of [['El Salvador', 'SV'], ['Japan', 'JP'], ['Canada', 'CA']]) {
+      for (const [name, code] of [['El Salvador', 'SV'], ['Japan', 'JP'], ['Canada', 'CA']] as const) {
         await user.click(screen.getByRole('button', { name: `Ver más sobre ${name}` }));
         expect(log).toHaveBeenLastCalledWith('País seleccionado:', code);
+        const details = screen.getByRole('dialog', { name });
+        expect(details).toHaveAttribute('open');
+        expect(within(details).getByText(code)).toBeInTheDocument();
+        expect(within(details).getByRole('img', { name: `Bandera de ${name}` })).toBeInTheDocument();
+        await user.click(within(details).getByRole('button', { name: 'Cerrar' }));
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
       }
     } finally { log.mockRestore(); }
   });
@@ -163,6 +170,56 @@ describe('composición y callbacks de S25', () => {
     rerender(<CountryCard country={canada} onSelect={vi.fn()} />);
     expect(screen.getByRole('img', { name: 'Bandera de Canada' })).toHaveAttribute('src', '/flags/ca.svg');
     expect(screen.queryByText('Bandera no disponible')).not.toBeInTheDocument();
+  });
+});
+
+describe('ficha del país', () => {
+  it('conserva los filtros y devuelve el foco al cerrar la ficha', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.type(screen.getByLabelText('Buscar país'), 'can');
+    await user.selectOptions(screen.getByLabelText('Región'), 'Americas');
+    const trigger = screen.getByRole('button', { name: 'Ver más sobre Canada' });
+    await user.click(trigger);
+    const details = screen.getByRole('dialog', { name: 'Canada' });
+    expect(within(details).getByText('41,798,407')).toBeInTheDocument();
+    expect(within(details).getByText('Ottawa')).toBeInTheDocument();
+    await user.click(within(details).getByRole('button', { name: 'Cerrar' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Buscar país')).toHaveValue('can');
+    expect(screen.getByLabelText('Región')).toHaveValue('Americas');
+    expect(screen.getAllByRole('article')).toHaveLength(1);
+    expect(trigger).toHaveFocus();
+  });
+
+  it('cierra la ficha al recibir la cancelación nativa de Escape', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const trigger = screen.getByRole('button', { name: 'Ver más sobre Japan' });
+    await user.click(trigger);
+    fireEvent(screen.getByRole('dialog', { name: 'Japan' }), new Event('cancel', { cancelable: true }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it('permite consultar el contenido y cerrar al pulsar el fondo', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole('button', { name: 'Ver más sobre El Salvador' }));
+    const details = screen.getByRole('dialog', { name: 'El Salvador' });
+    await user.click(within(details).getByText('San Salvador'));
+    expect(details).toBeInTheDocument();
+    fireEvent.click(details);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('presenta una ficha con datos ausentes sin mostrar null o undefined', () => {
+    render(<CountryDetails country={{ names: elSalvador.names, codes: elSalvador.codes }} onClose={vi.fn()} />);
+    const details = screen.getByRole('dialog', { name: 'El Salvador' });
+    expect(within(details).getByText('SV')).toBeInTheDocument();
+    expect(within(details).getAllByText('No disponible')).toHaveLength(3);
+    expect(within(details).getByText('Bandera no disponible')).toBeInTheDocument();
+    expect(details.textContent).not.toMatch(/undefined|null/);
   });
 });
 

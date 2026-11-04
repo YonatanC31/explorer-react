@@ -4,9 +4,9 @@ Ejecute `pnpm run dev` en la carpeta independiente `explorer-react`. Abra la apl
 
 ## 0:00–0:40 · Escritorio y tarjetas
 
-**Qué mostrar:** una ventana de al menos 1120 px, las tres tarjetas y el botón «Ver más». Abra la consola y pulse «Ver más» en El Salvador, Japan y Canada: deben aparecer `SV`, `JP` y `CA`.
+**Qué mostrar:** una ventana de al menos 1120 px, las tres tarjetas y el botón «Ver más». Abra la consola y pulse «Ver más» en El Salvador, Japan y Canada: se abre su ficha y aparecen `SV`, `JP` y `CA` en la consola. Cierre cada ficha antes de abrir la siguiente.
 
-**Texto de apoyo:** «Buenos días. Soy Yonatan Chicas y presentaré Explorer App con React 18 y TypeScript. Utiliza los tres registros locales del material de clase: El Salvador, Japan y Canada. El grid admite cuatro columnas en pantallas amplias; con esta muestra queda una posición libre. Cada tarjeta muestra bandera, nombre, población, región y capital. El botón Ver más llama a un callback que recibe el código del país y lo muestra aquí en la consola».
+**Texto de apoyo:** «Buenos días. Soy Yonatan Chicas y presentaré Explorer App con React 18 y TypeScript. Utiliza los tres registros locales del material de clase: El Salvador, Japan y Canada. El grid admite cuatro columnas en pantallas amplias; con esta muestra queda una posición libre. Cada tarjeta muestra bandera, nombre, población, región y capital. El botón Ver más llama a un callback que recibe el código del país, abre su ficha y muestra el código aquí en la consola».
 
 ## 0:40–1:30 · Búsqueda y región combinadas
 

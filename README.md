@@ -20,17 +20,17 @@ pnpm run dev
 
 Búsqueda inmediata por nombre, filtro por región combinado, mensaje sin resultados y menú móvil. Las tarjetas muestran bandera, nombre, población, región y capital, con respaldo para los datos ausentes. El diseño admite cuatro tarjetas por fila en escritorio y se adapta a móvil; la muestra de clase contiene tres países.
 
-Para comprobar los filtros, busque `can` y elija América: aparece Canada. Cambie a Asia: aparece el mensaje sin resultados. Pulse «Restablecer filtros» para recuperar los tres países. «Ver más» muestra el código del país en la consola.
+Para comprobar los filtros, busque `can` y elija América: aparece Canada. Cambie a Asia: aparece el mensaje sin resultados. Pulse «Restablecer filtros» para recuperar los tres países. «Ver más» abre una ficha del país; puede cerrarla con «Cerrar», Escape o pulsando el fondo.
 
 ## Organización
 
 - **Átomos:** `Flag`, `Badge`, `Button`, `Icon` y `CountryFact`.
 - **Moléculas:** `CountryCard`, `SearchBar`, `RegionFilter`, `Navigation` y `EmptyState`.
-- **Organismos:** `Header` y `CountryGrid`.
+- **Organismos:** `Header`, `CountryGrid` y `CountryDetails`.
 
 `CountryGrid` recibe `countries: Country[]` y `onSelect: (code: string) => void`. Crea las tarjetas con `map()`, utiliza el código del país como `key` y pasa cada país y el callback a `CountryCard`, que utiliza `Flag` y `Badge`.
 
-`App.tsx` mantiene `query`, `region` e `isMenuOpen`. `Header` muestra `children` y transmite los valores y callbacks a los controles hijos. Los datos de clase están en `src/data/countries-demo.ts`, los tipos en `src/types/` y las utilidades en `src/utils/`.
+`App.tsx` mantiene `query`, `region`, `isMenuOpen` y el código seleccionado. `Header` muestra `children` y transmite los valores y callbacks a los controles hijos. Los datos de clase están en `src/data/countries-demo.ts`, los tipos en `src/types/` y las utilidades en `src/utils/`.
 
 ## Captura
 
@@ -44,7 +44,7 @@ pnpm test
 pnpm run build
 ```
 
-Las 27 pruebas comprueban filtros, callbacks, menú y datos ausentes. `build` comprueba TypeScript y genera `dist/`. `.gitignore` excluye `node_modules` y `dist`.
+Las 31 pruebas comprueban filtros, callbacks, menú, fichas y datos ausentes. `build` comprueba TypeScript y genera `dist/`. `.gitignore` excluye `node_modules` y `dist`.
 
 ## Entrega
 

@@ -20,6 +20,7 @@ src/
     organisms/
       Header.tsx         Título, children, navegación y controles.
       CountryGrid.tsx    Listado de tarjetas generado con map().
+      CountryDetails.tsx Ficha del país seleccionado.
   data/countries-demo.ts Los tres registros locales de clase.
   data/regions.ts        Valores exactos y nombres visibles del selector.
   types/country.ts      Interfaces del contrato de países.
@@ -34,7 +35,11 @@ src/
 
 `CountryGrid` recibe `countries: Country[]` y `onSelect: (code: string) => void`. Recorre el arreglo con `map()`, entrega cada objeto a `CountryCard` mediante `country` y transmite el mismo callback `onSelect`. Utiliza `country.codes.alpha_2` como `key` estable y única.
 
-`CountryCard` declara una interfaz de props y compone `Flag`, `Badge`, nombre, población y capital. El botón «Ver más» llama a `onSelect(country.codes.alpha_2)`. En esta etapa `handleSelect`, definido en `App`, muestra `SV`, `JP` o `CA` en la consola; no navega a una página de detalle.
+`CountryCard` declara una interfaz de props y compone `Flag`, `Badge`, nombre, población y capital. El botón «Ver más» llama a `onSelect(country.codes.alpha_2)`. `handleSelect`, definido en `App`, muestra `SV`, `JP` o `CA` en la consola y guarda el código en `selectedCode` para abrir `CountryDetails` con los datos locales del país.
+
+La ficha utiliza un diálogo nativo con un nombre accesible. Se cierra con «Cerrar», Escape o pulsando el fondo. Conserva los filtros y devuelve el foco al botón que la abrió. Reutiliza `Flag`, `Badge` y `CountryFact`, contempla datos ausentes y se adapta al ancho y alto disponibles.
+
+[Captura de la ficha en móvil](./capturas/detalle-movil.jpg).
 
 Al añadir otro objeto con un código único al arreglo recibido por `CountryGrid`, aparece otra tarjeta sin modificar el componente.
 
@@ -83,7 +88,7 @@ La interfaz conserva `names.common`, `codes.alpha_2`, `flag.url_svg`, `populatio
 
 Compruebe también «Ver más» en la consola, la navegación con teclado y el menú móvil. El grid tiene cuatro columnas desde 1120 px y una en móvil; con los tres registros de clase queda una posición libre en escritorio. No se añade un cuarto país ajeno a la muestra. El modo oscuro responde automáticamente a la preferencia del sistema, sin interruptor adicional.
 
-Las **27 pruebas** verifican esos casos, el flujo de callbacks, `children`, los códigos de selección, los metadatos ausentes o `null`, el respaldo de banderas y la reutilización del grid al añadir otro país. También comprueban que el mensaje vacío desaparezca al corregir la región y que se conserve la búsqueda. `vitest.config.ts` limita las pruebas al código de este proyecto. Ejecute `pnpm run lint`, `pnpm test` y `pnpm run build` antes de guardar cambios; revise después `git diff` y utilice Conventional Commits.
+Las **31 pruebas** verifican esos casos, el flujo de callbacks, `children`, los códigos de selección, los metadatos ausentes o `null`, el respaldo de banderas y la reutilización del grid al añadir otro país. También comprueban el cierre de la ficha, la conservación de filtros y el retorno del foco. `vitest.config.ts` limita las pruebas al código de este proyecto. Ejecute `pnpm run lint`, `pnpm test` y `pnpm run build` antes de guardar cambios; revise después `git diff` y utilice Conventional Commits.
 
 ### Comprobación de la rúbrica React
 

@@ -5,17 +5,21 @@ import { countriesDemo } from './data/countries-demo';
 import { filterCountries } from './utils/filter';
 import { Header } from './components/organisms/Header';
 import { CountryGrid } from './components/organisms/CountryGrid';
+import { CountryDetails } from './components/organisms/CountryDetails';
 import { EmptyState } from './components/molecules/EmptyState';
 
 export default function App(): JSX.Element {
   const [query, setQuery] = useState<string>('');
   const [region, setRegion] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [selectedCode, setSelectedCode] = useState<string | null>(null);
 
   const filteredCountries: Country[] = filterCountries(countriesDemo, query, region);
+  const selectedCountry = countriesDemo.find((country) => country.codes.alpha_2 === selectedCode);
 
   function handleSelect(code: string): void {
     console.log('País seleccionado:', code);
+    setSelectedCode(code);
   }
 
   function resetFilters(): void {
@@ -35,6 +39,7 @@ export default function App(): JSX.Element {
           {filteredCountries.length > 0 ? <CountryGrid countries={filteredCountries} onSelect={handleSelect} /> : <EmptyState onReset={resetFilters} />}
         </section>
       </main>
+      {selectedCountry && <CountryDetails country={selectedCountry} onClose={() => setSelectedCode(null)} />}
       <footer className="site-footer shell">Explorer App · Información de países</footer>
     </div>
   );

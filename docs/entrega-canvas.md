@@ -39,10 +39,10 @@ Adjunte el video o añada su enlace accesible antes de enviar ese texto.
 - [x] `pnpm run lint` y `pnpm run build` terminan sin errores.
 - [x] El README muestra una captura y explica qué recibe CountryGrid.
 - [x] El listado muestra El Salvador, Japan y Canada.
-- [x] «Ver más» muestra SV, JP y CA mediante el callback.
+- [x] «Ver más» abre la ficha y muestra SV, JP y CA en la consola mediante el callback.
 - [x] La búsqueda, región y limpieza de filtros funcionan juntas.
 - [x] Las tarjetas contemplan metadatos ausentes, `null`, cadenas vacías y banderas que no cargan.
-- [x] Las 27 pruebas automatizadas comprueban filtros, callbacks, menú y datos ausentes.
+- [x] Las 31 pruebas automatizadas comprueban filtros, callbacks, menú, fichas y datos ausentes.
 - [ ] El video muestra escritorio, móvil y apertura y cierre del menú.
 - [ ] El video explica `query`, `region`, `onQueryChange`, `onRegionChange` y `children`.
 - [ ] Se adjunta un video de 3 a 5 minutos o un enlace accesible.

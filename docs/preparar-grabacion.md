@@ -14,7 +14,7 @@
 | Acción | Resultado |
 | --- | --- |
 | Ver la aplicación con un ancho de al menos 1120 px | Cuatro columnas; la muestra tiene tres tarjetas y deja un espacio libre. |
-| Pulsar «Ver más» en cada país | La consola muestra SV, JP y CA. |
+| Pulsar «Ver más» en cada país y cerrar su ficha | Se abre la ficha correspondiente y la consola muestra SV, JP y CA. |
 | Buscar `SAL` | Se muestra El Salvador. |
 | Borrar el texto y elegir América | Se muestran El Salvador y Canada. |
 | Mantener América y buscar `can` | Se muestra Canada. |
@@ -31,7 +31,7 @@
 - **Children:** el párrafo colocado entre `<Header>` y `</Header>` en App.
 - **Callback de búsqueda:** App → Header → SearchBar → `onQueryChange` → `setQuery`.
 - **Callback de región:** App → Header → RegionFilter → `onRegionChange` → `setRegion`.
-- **Selección:** CountryCard llama a `onSelect(country.codes.alpha_2)`; CountryGrid transmite la función y App ejecuta `handleSelect`.
+- **Selección:** CountryCard llama a `onSelect(country.codes.alpha_2)`; CountryGrid transmite la función y App ejecuta `handleSelect`, que actualiza `selectedCode` para abrir CountryDetails.
 
 ## Antes de entregar
 

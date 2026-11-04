@@ -13,7 +13,7 @@ Utilice estas referencias para comprobar el recorrido de los datos y explicarlo 
 
 1. **¿Qué recibe CountryGrid y qué entrega a CountryCard?** Recibe `countries: Country[]` y el callback `onSelect`. En cada iteración de `map()` entrega el objeto actual a la prop `country` de una tarjeta y le transmite `onSelect`.
 2. **¿Por qué se utiliza el código como key?** `codes.alpha_2` identifica cada país de forma estable y única. React conserva así la identidad de las tarjetas cuando se filtra, se reordena o se amplía el listado. La posición del arreglo puede cambiar, pero el código del país se mantiene.
-3. **¿Qué diferencia hay entre enviar country y enviar onSelect?** `country` es un dato que el hijo muestra. `onSelect` es una función que el hijo puede llamar para comunicar una interacción al padre. «Ver más» envía `SV`, `JP` o `CA`; `handleSelect`, en App, lo muestra en la consola.
+3. **¿Qué diferencia hay entre enviar country y enviar onSelect?** `country` es un dato que el hijo muestra. `onSelect` es una función que el hijo puede llamar para comunicar una interacción al padre. «Ver más» envía `SV`, `JP` o `CA`; `handleSelect`, en App, lo muestra en la consola y actualiza `selectedCode` para abrir la ficha CountryDetails.
 4. **¿Qué contenido recibe Header mediante children?** App coloca dentro de Header el párrafo «Consulte sus datos y encuentre países por nombre o región». Header lo recibe como `ReactNode` y lo representa debajo del título.
 
 ## S26 · Estado y resultados derivados
