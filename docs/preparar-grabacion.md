@@ -3,7 +3,7 @@
 ## Aplicación y archivos
 
 1. Abra la carpeta independiente `explorer-react`, situada fuera del proyecto Vanilla.
-2. Ejecute `pnpm install --frozen-lockfile` y `pnpm run dev`. En Windows puede utilizar `iniciar.cmd`.
+2. Ejecute `pnpm install` y `pnpm run dev`.
 3. Abra la dirección «Local» que muestre Vite. La habitual es `http://127.0.0.1:5174/`. No abra `index.html` con doble clic.
 4. Compruebe que aparezcan **El Salvador, Japan y Canada**. Los nombres Japan y Canada se conservan tal como están en los registros de clase.
 5. Abra en el editor `App.tsx`, `Header.tsx`, `CountryGrid.tsx`, `CountryCard.tsx`, `SearchBar.tsx` y `RegionFilter.tsx`.

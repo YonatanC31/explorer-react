@@ -4,20 +4,17 @@ Proyecto desarrollado con **React 18, TypeScript, Vite y Tailwind CSS v4**. Util
 
 ## Cómo ejecutar
 
-Necesita **Node.js 22.12 o 24**, **Git** y **pnpm**. Si no tiene pnpm, instálelo una vez con `npm install -g pnpm@11.25.0`.
+Necesita **Node.js 22.12 o 24** y **pnpm**. Si no tiene pnpm, instálelo una vez con `npm install -g pnpm@11.25.0`.
 
-Abra una terminal y ejecute:
+1. En GitHub, seleccione **Code → Download ZIP** y extraiga el archivo.
+2. Abra una terminal en la carpeta extraída, donde está `package.json`, y ejecute:
 
 ```bash
-git clone https://github.com/YonatanC31/explorer-react.git
-cd explorer-react
-pnpm install --frozen-lockfile
+pnpm install
 pnpm run dev
 ```
 
-Abra la dirección que aparece en la terminal, normalmente **http://127.0.0.1:5174/**. Mantenga la terminal abierta mientras utiliza la aplicación. No abra `index.html` directamente.
-
-En Windows, después de descargar el proyecto y tener los requisitos instalados, también puede abrir **`iniciar.cmd`** para instalar las dependencias e iniciar la aplicación.
+3. Abra la dirección que aparece en la terminal, normalmente **http://127.0.0.1:5174/**. Mantenga la terminal abierta mientras utiliza la aplicación.
 
 ## Qué incluye
 
