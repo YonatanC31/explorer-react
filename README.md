@@ -2,6 +2,8 @@
 
 Proyecto desarrollado con **React 18, TypeScript, Vite y Tailwind CSS v4**. Utiliza los tres países de demostración de clase: El Salvador, Japan y Canada, con datos y banderas locales.
 
+Los datos siguen el [material de referencia de clase](https://github.com/Kcruz080492/explorer-react/blob/main/src/data/countries-demo.ts). Su licencia se conserva en `public/data/LICENSE.txt`.
+
 ## Cómo ejecutar
 
 Necesita **Node.js 22.12 o 24** y **pnpm**. Si no tiene pnpm, instálelo una vez con `npm install -g pnpm@11.25.0`.
@@ -34,22 +36,19 @@ Para comprobar los filtros, busque `can` y elija América: aparece Canada. Cambi
 
 ## Captura
 
-![Explorer App en escritorio](./docs/capturas/escritorio.jpg)
+![Explorer App en escritorio](./captura.jpg)
 
 ## Comprobaciones
 
 ```bash
 pnpm run lint
-pnpm test
 pnpm run build
 ```
 
-Las 31 pruebas comprueban filtros, callbacks, menú, fichas y datos ausentes. `build` comprueba TypeScript y genera `dist/`. `.gitignore` excluye `node_modules` y `dist`.
+`build` comprueba TypeScript y genera `dist/`. `.gitignore` excluye `node_modules` y `dist`.
 
 ## Entrega
 
 - [Rama de entrega: entrega-s24-s27](https://github.com/YonatanC31/explorer-react/tree/entrega-s24-s27).
-- [Guion para el video obligatorio de 3 a 5 minutos](./docs/guion-video.md).
-- [Detalles técnicos, fuente de datos y comprobación de requisitos](./docs/detalles-tecnicos.md).
 
-Comparta el enlace del repositorio y su video en Canvas. Esta versión utiliza datos locales y no requiere una API ni React Router.
+Comparta el enlace del repositorio y su video de 3 a 5 minutos en Canvas. Esta versión utiliza datos locales y no requiere una API ni React Router.
