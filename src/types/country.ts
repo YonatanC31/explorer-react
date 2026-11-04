@@ -7,8 +7,8 @@ export interface CountryCodes {
 }
 
 export interface CountryFlag {
-  url_svg: string;
-  description: string;
+  url_svg?: string | null;
+  description?: string | null;
 }
 
 export interface CountryCapital {
@@ -18,8 +18,8 @@ export interface CountryCapital {
 export interface Country {
   names: CountryNames;
   codes: CountryCodes;
-  flag: CountryFlag;
-  population: number;
-  region: string;
-  capitals: CountryCapital[];
+  flag?: CountryFlag | null;
+  population?: number | null;
+  region?: string | null;
+  capitals?: CountryCapital[] | null;
 }

@@ -6,6 +6,7 @@ import { CountryCard } from './components/molecules/CountryCard';
 import { CountryGrid } from './components/organisms/CountryGrid';
 import { Header } from './components/organisms/Header';
 import { canada, countriesDemo, elSalvador, japon } from './data/countries-demo';
+import type { Country } from './types/country';
 
 describe('casos de comprobación de S26', () => {
   it.each([
@@ -53,7 +54,21 @@ describe('casos de comprobación de S26', () => {
     expect(screen.getByLabelText('Buscar país')).toHaveValue('');
     expect(screen.getByLabelText('Región')).toHaveValue('');
     expect(screen.getAllByRole('article')).toHaveLength(3);
+    expect(screen.queryByRole('heading', { name: 'No se encontraron países' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Limpiar filtros' })).toBeDisabled();
+  });
+
+  it('retira el mensaje vacío al corregir solo la región y conserva la búsqueda', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.type(screen.getByLabelText('Buscar país'), 'CAN');
+    await user.selectOptions(screen.getByLabelText('Región'), 'Asia');
+    expect(screen.getByRole('heading', { name: 'No se encontraron países' })).toBeInTheDocument();
+    await user.selectOptions(screen.getByLabelText('Región'), 'Americas');
+    expect(screen.getByLabelText('Buscar país')).toHaveValue('CAN');
+    expect(screen.getByRole('article', { name: 'Canada' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'No se encontraron países' })).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('1 país encontrado');
   });
 });
 
@@ -112,6 +127,42 @@ describe('composición y callbacks de S25', () => {
     expect(screen.getByText('No disponible')).toBeInTheDocument();
     fireEvent.error(screen.getByRole('img'));
     expect(screen.getByText('Bandera no disponible')).toBeInTheDocument();
+  });
+
+  it.each([
+    { names: elSalvador.names, codes: elSalvador.codes },
+    { ...elSalvador, flag: null, population: null, region: null, capitals: null },
+  ] satisfies Country[])('representa metadatos ausentes o null sin romper la tarjeta (%#)', async (country) => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    render(<CountryCard country={country} onSelect={onSelect} />);
+    expect(screen.getByRole('heading', { name: 'El Salvador' })).toBeInTheDocument();
+    expect(screen.getAllByText('No disponible')).toHaveLength(3);
+    expect(screen.getByText('Bandera no disponible')).toBeInTheDocument();
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(screen.getByRole('article').textContent).not.toMatch(/undefined|null/);
+    await user.click(screen.getByRole('button', { name: 'Ver más sobre El Salvador' }));
+    expect(onSelect).toHaveBeenCalledExactlyOnceWith('SV');
+  });
+
+  it('contempla cadenas vacías y recorta la región antes de mostrar su Badge', () => {
+    const { rerender } = render(<CountryCard country={{
+      ...japon, flag: { url_svg: ' ' }, region: ' ', capitals: [{ name: ' ' }],
+    }} onSelect={vi.fn()} />);
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(screen.getByText('Bandera no disponible')).toBeInTheDocument();
+    expect(screen.getAllByText('No disponible')).toHaveLength(2);
+    rerender(<CountryCard country={{ ...japon, region: ' Asia ' }} onSelect={vi.fn()} />);
+    expect(screen.getByText('Asia')).toHaveClass('region-badge');
+  });
+
+  it('vuelve a mostrar una imagen cuando recibe otra bandera después de un error', () => {
+    const { rerender } = render(<CountryCard country={japon} onSelect={vi.fn()} />);
+    fireEvent.error(screen.getByRole('img'));
+    expect(screen.getByText('Bandera no disponible')).toBeInTheDocument();
+    rerender(<CountryCard country={canada} onSelect={vi.fn()} />);
+    expect(screen.getByRole('img', { name: 'Bandera de Canada' })).toHaveAttribute('src', '/flags/ca.svg');
+    expect(screen.queryByText('Bandera no disponible')).not.toBeInTheDocument();
   });
 });
 

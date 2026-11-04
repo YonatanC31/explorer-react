@@ -24,7 +24,7 @@ pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
-Abra la dirección que muestre Vite, normalmente `http://127.0.0.1:5174/`, y mantenga la terminal abierta. No abra `index.html` con doble clic. Si el puerto está ocupado, Vite indicará otro. En Windows también puede utilizar `iniciar.cmd`; instala las dependencias si faltan y ejecuta `pnpm run dev`.
+Abra la dirección que muestre Vite, normalmente `http://127.0.0.1:5174/`, y mantenga la terminal abierta. No abra `index.html` con doble clic. Si el puerto está ocupado, Vite indicará otro. En Windows también puede utilizar `iniciar.cmd`; instala las dependencias desde el lockfile y ejecuta `pnpm run dev`.
 
 ```bash
 pnpm list react react-dom @types/react @types/react-dom
@@ -102,6 +102,8 @@ Los objetos `elSalvador`, `japon` y `canada`, y el arreglo `countriesDemo`, sigu
 
 La interfaz conserva `names.common`, `codes.alpha_2`, `flag.url_svg`, `population`, `region` y `capitals`. Las banderas se incluyen en `public/flags/` y solo sus rutas se adaptan para servirlas localmente. La licencia de los datos se conserva en `public/data/LICENSE.txt`. No se realiza ninguna petición `fetch` ni se requiere una clave.
 
+`names` y `codes` son obligatorios para identificar cada tarjeta. Los metadatos `flag`, `population`, `region` y `capitals` contemplan propiedades omitidas y valores `null`, sin recurrir a `any`. Cuando faltan, se muestra «No disponible» o «Bandera no disponible». Las cadenas con solo espacios también se consideran vacías; una población de cero se conserva. Si una bandera falla y después el componente recibe otra ruta, intenta mostrar la nueva imagen.
+
 ## Verificación de S25–S27
 
 | Búsqueda | Región | Resultado esperado |
@@ -117,7 +119,18 @@ La interfaz conserva `names.common`, `codes.alpha_2`, `flag.url_svg`, `populatio
 
 Compruebe también «Ver más» en la consola, la navegación con teclado y el menú móvil. El grid tiene cuatro columnas desde 1120 px y una en móvil; con los tres registros de clase queda una posición libre en escritorio. No se añade un cuarto país ajeno a la muestra. El modo oscuro responde automáticamente a la preferencia del sistema, sin interruptor adicional.
 
-Las pruebas verifican esos casos, el flujo de callbacks, `children`, los códigos de selección y la reutilización del grid al añadir otro país. Ejecute `pnpm run lint`, `pnpm test` y `pnpm run build` antes de guardar cambios; revise después `git diff` y utilice Conventional Commits.
+Las **27 pruebas** verifican esos casos, el flujo de callbacks, `children`, los códigos de selección, los metadatos ausentes o `null`, el respaldo de banderas y la reutilización del grid al añadir otro país. También comprueban que el mensaje vacío desaparezca al corregir la región y que se conserve la búsqueda. `vitest.config.ts` limita las pruebas al código de este proyecto. Ejecute `pnpm run lint`, `pnpm test` y `pnpm run build` antes de guardar cambios; revise después `git diff` y utilice Conventional Commits.
+
+### Comprobación de la rúbrica React
+
+| Criterio | Evidencia en el proyecto |
+| --- | --- |
+| Atomic Design | `atoms`, `molecules` y `organisms`; CountryCard compone Flag y Badge; CountryGrid genera las tarjetas con `map()` y códigos únicos. |
+| Props e interfaces de TypeScript | `Country` representa los datos utilizados y sus posibles ausencias. Las props, los eventos y los callbacks tienen tipos explícitos. |
+| Estado y comunicación | App conserva `query`, `region` e `isMenuOpen`. Header transmite valores y callbacks a SearchBar y RegionFilter; también muestra `children`. |
+| Búsqueda y región | Se combinan sobre los registros originales, actualizan inmediatamente, conservan el otro control y muestran un mensaje sin coincidencias. |
+| Tarjetas y menú adaptables | Cuatro columnas en pantallas amplias y distribución ajustada en móvil. El menú puede abrirse y cerrarse con el botón, los enlaces o Escape. |
+| Evidencia y documentación | Se incluyen README, capturas, guion e instrucciones de ejecución. Debe grabar y adjuntar el video de 3 a 5 minutos para completar la evidencia de entrega. |
 
 ## Capturas reales
 
@@ -145,7 +158,7 @@ La fecha indicada en la actividad es el **4 de noviembre de 2026**. Debe entrega
 - Código completo en [`main`](https://github.com/YonatanC31/explorer-react/tree/main).
 - Rama del avance de S24–S27: [`entrega-s24-s27`](https://github.com/YonatanC31/explorer-react/tree/entrega-s24-s27).
 
-La carpeta local y el repositorio React son independientes del proyecto anterior, como indica S24. La [entrega Vanilla TypeScript](https://github.com/YonatanC31/Laboratorio2_DWA/tree/vanilla-typescript-v1.0.0) se conserva en su propio repositorio.
+La carpeta local y el repositorio React son independientes del proyecto anterior, como indica S24. La [entrega Vanilla TypeScript revisada](https://github.com/YonatanC31/Laboratorio2_DWA/tree/vanilla-typescript-v1.1.0) se conserva en su propio repositorio.
 
 Para consultar y ejecutar la rama del avance:
 

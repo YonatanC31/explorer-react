@@ -13,7 +13,7 @@ interface CountryCardProps {
 export function CountryCard({ country, onSelect }: CountryCardProps) {
   return (
     <article className="country-card bg-white dark:bg-slate-800" aria-labelledby={`country-${country.codes.alpha_2}`}>
-      <Flag src={country.flag.url_svg} countryName={country.names.common} />
+      <Flag src={country.flag?.url_svg} countryName={country.names.common} />
       <div className="card-content">
         <h2 id={`country-${country.codes.alpha_2}`}>{country.names.common}</h2>
         <dl>

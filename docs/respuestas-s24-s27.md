@@ -5,7 +5,7 @@ Utilice estas referencias para comprobar el recorrido de los datos y explicarlo 
 ## S24 · Migración a React
 
 1. **¿Qué cambió al pasar del renderizado Vanilla a CountryCard?** El renderizado anterior construía nodos con funciones del DOM. `CountryCard` es una función React que describe la tarjeta mediante JSX y recibe un objeto `Country` por props. React actualiza la representación al cambiar los datos recibidos.
-2. **¿Qué recibe CountryCard y cómo está tipado?** La interfaz `CountryCardProps` exige `country: Country` y `onSelect: (code: string) => void`. El contrato `Country` contiene los campos anidados utilizados en la muestra de clase.
+2. **¿Qué recibe CountryCard y cómo está tipado?** La interfaz `CountryCardProps` exige `country: Country` y `onSelect: (code: string) => void`. El contrato `Country` contiene los campos anidados utilizados en la muestra de clase. El nombre y el código son obligatorios; la bandera, población, región y capitales pueden omitirse o ser `null`. La tarjeta conserva la población cero y muestra un respaldo cuando falta un dato.
 3. **¿Qué se reutilizó de Vanilla?** Se conserva la idea de una utilidad independiente del DOM para formatear la población con `Intl.NumberFormat('es-SV')`. El contrato de países se adapta a `names`, `codes`, `flag` y `capitals`, tal como muestra la referencia de clase.
 4. **¿Qué se comprobó con los tres países?** La misma tarjeta representa El Salvador, Japan y Canada cambiando sus props; cada una muestra su bandera, población, región y capital. La búsqueda funciona sobre esos mismos registros locales.
 

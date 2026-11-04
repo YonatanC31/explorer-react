@@ -25,4 +25,20 @@ describe('datos, filtros y formato', () => {
     expect(getCapital(elSalvador)).toBe('San Salvador');
     expect(getCapital({ ...elSalvador, capitals: [] })).toBe('No disponible');
   });
+
+  it('contempla poblaciones ausentes o inválidas y capitales vacías', () => {
+    for (const population of [undefined, null, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+      expect(formatPopulation(population)).toBe('No disponible');
+    }
+    expect(getCapital({ names: elSalvador.names, codes: elSalvador.codes })).toBe('No disponible');
+    expect(getCapital({ ...elSalvador, capitals: null })).toBe('No disponible');
+    expect(getCapital({ ...elSalvador, capitals: [{ name: ' ' }] })).toBe('No disponible');
+    expect(getCapital({ ...elSalvador, capitals: [{ name: ' San Salvador ' }, { name: ' ' }] })).toBe('San Salvador');
+  });
+
+  it('busca registros con metadatos ausentes sin confundirlos con otra región', () => {
+    const country = { names: elSalvador.names, codes: elSalvador.codes };
+    expect(filterCountries([country], 'SAL', '')).toEqual([country]);
+    expect(filterCountries([country], 'SAL', 'Americas')).toEqual([]);
+  });
 });

@@ -41,6 +41,8 @@ Adjunte el video o añada su enlace accesible antes de enviar ese texto.
 - [x] El listado muestra El Salvador, Japan y Canada.
 - [x] «Ver más» muestra SV, JP y CA mediante el callback.
 - [x] La búsqueda, región y limpieza de filtros funcionan juntas.
+- [x] Las tarjetas contemplan metadatos ausentes, `null`, cadenas vacías y banderas que no cargan.
+- [x] Las 27 pruebas automatizadas comprueban filtros, callbacks, menú y datos ausentes.
 - [ ] El video muestra escritorio, móvil y apertura y cierre del menú.
 - [ ] El video explica `query`, `region`, `onQueryChange`, `onRegionChange` y `children`.
 - [ ] Se adjunta un video de 3 a 5 minutos o un enlace accesible.
