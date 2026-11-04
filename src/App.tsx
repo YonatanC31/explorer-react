@@ -40,7 +40,7 @@ export default function App(): JSX.Element {
         </section>
       </main>
       {selectedCountry && <CountryDetails country={selectedCountry} onClose={() => setSelectedCode(null)} />}
-      <footer className="site-footer shell">Explorer App · Información de países</footer>
+      <footer className="site-footer shell">Explorer App · Yonatan Chicas</footer>
     </div>
   );
 }
