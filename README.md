@@ -2,7 +2,6 @@
 
 Proyecto desarrollado con **React 18, TypeScript, Vite y Tailwind CSS v4**. Utiliza los tres países de demostración de clase: El Salvador, Japan y Canada, con datos y banderas locales.
 
-Los datos siguen el [material de referencia de clase](https://github.com/Kcruz080492/explorer-react/blob/main/src/data/countries-demo.ts). Su licencia se conserva en `public/data/LICENSE.txt`.
 
 ## Cómo ejecutar
 
