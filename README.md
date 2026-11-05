@@ -51,4 +51,4 @@ pnpm run build
 
 - [Rama de entrega: entrega-s24-s27](https://github.com/YonatanC31/explorer-react/tree/entrega-s24-s27).
 
-Comparta el enlace del repositorio y su video de 3 a 5 minutos en Canvas. Esta versión utiliza datos locales y no requiere una API ni React Router.
+
